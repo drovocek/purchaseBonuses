@@ -1,12 +1,12 @@
 package com.spimex.purchasebonuses.service.payment.processing.baseImpl.step;
 
+import com.spimex.purchasebonuses.exception.NotSupportedTypeException;
 import com.spimex.purchasebonuses.service.payment.processing.baseImpl.PaymentCalculationProcessContextImpl;
 import com.spimex.purchasebonuses.service.payment.processing.core.ProcessStageName;
 import com.spimex.purchasebonuses.web.dict.PaymentSource;
-import com.spimex.purchasebonuses.exception.NotSupportedTypeException;
 import org.springframework.stereotype.Component;
 
-import static com.spimex.purchasebonuses.exception.NotSupportedTypeException.NOT_SUPPORTED_TEMPLATE;
+import static com.spimex.purchasebonuses.exception.NotSupportedTypeException.NOT_SUPPORTED_TYPE_TEMPLATE;
 
 @Component
 public class CheckPaymentSourceCalculationProcessStage extends CalculationProcessStageBase {
@@ -26,7 +26,7 @@ public class CheckPaymentSourceCalculationProcessStage extends CalculationProces
         } else if (PaymentSource.Shop.equals(paymentSource)) {
             processContext.setStage(this.stageFactory.getStage(ProcessStageName.ADD_SHOP_E_MONEY_BONUS_10));
         } else {
-            throw new NotSupportedTypeException(NOT_SUPPORTED_TEMPLATE.formatted(paymentSource));
+            throw new NotSupportedTypeException(NOT_SUPPORTED_TYPE_TEMPLATE.formatted(paymentSource));
         }
     }
 }

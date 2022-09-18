@@ -7,7 +7,7 @@ import com.spimex.purchasebonuses.exception.NotSupportedTypeException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import static com.spimex.purchasebonuses.exception.NotSupportedTypeException.NOT_SUPPORTED_TEMPLATE;
+import static com.spimex.purchasebonuses.exception.NotSupportedTypeException.NOT_SUPPORTED_TYPE_TEMPLATE;
 
 @Service
 public class BankAccountService {
@@ -34,7 +34,7 @@ public class BankAccountService {
         } else if (PaymentSource.Online.equals(paymentSource)) {
             return getNonCashMoney(paymentAmount);
         }
-        throw new NotSupportedTypeException(NOT_SUPPORTED_TEMPLATE.formatted(paymentSource));
+        throw new NotSupportedTypeException(NOT_SUPPORTED_TYPE_TEMPLATE.formatted(paymentSource));
     }
 
     public long getCashMoney(long eMoney) {

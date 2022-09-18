@@ -45,7 +45,7 @@ public class PaymentCalculationProcessContextImpl implements PaymentCalculationP
                 getEMoneyBonus(), getCommission());
     }
 
-    private boolean processingCondition(){
+    private boolean processingCondition() {
         return !this.stage.getStageName().equals(ProcessStageName.CALCULATION_COMPLETE);
     }
 }
