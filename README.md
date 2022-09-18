@@ -17,6 +17,7 @@ The (:link: [**task**](https://github.com/drovocek/purchaseBonuses/blob/master/t
 - `./mvnw.cmd clean test` - run tests
 
 ## Endpoints Documentation
+run project and go to (:link: [**task**](http://localhost:8080/api/doc.html))
 
 ## Notice
 - Mock data model and dao

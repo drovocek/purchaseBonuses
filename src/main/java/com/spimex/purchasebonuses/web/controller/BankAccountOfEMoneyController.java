@@ -1,6 +1,7 @@
 package com.spimex.purchasebonuses.web.controller;
 
 import com.spimex.purchasebonuses.service.BankAccountService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ public class BankAccountOfEMoneyController {
 
     private final BankAccountService service;
 
+    @Operation(summary = "Get all electronic money")
     @GetMapping
     private long getBankAccountOfEMoney() {
         return this.service.getEMoneyCount();
