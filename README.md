@@ -1,7 +1,7 @@
 # Purchase bonuses
 Test task for (:link: [**АО «СПбМТСБ»**](https://spimex.com/)) 
 
-The (:link: [**task**](https://www.coursera.org/learn/web-development-with-java-spring-framework))
+The (:link: [**task**](https://github.com/drovocek/purchaseBonuses/blob/master/task.pdf))
 
 ## Completion date
 :heavy_check_mark: 18 September 2022
