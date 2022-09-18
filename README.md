@@ -18,7 +18,7 @@ The (:link: [**task**](https://github.com/drovocek/purchaseBonuses/blob/master/t
 - `./mvnw.cmd clean test` - run tests
 
 ## Endpoints Documentation
-- download project to your host
+- download the project to your computer
 - got to project root ./purchaseBonuses
 - run project from console by `./mvnw.cmd spring-boot:run`
 - go to (:link: [**doc**](http://localhost:8080/api/doc.html))
