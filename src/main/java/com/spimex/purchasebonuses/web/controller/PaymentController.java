@@ -1,20 +1,24 @@
 package com.spimex.purchasebonuses.web.controller;
 
-import com.spimex.purchasebonuses.service.PaymentService;
+import com.spimex.purchasebonuses.exception.NotSupportedTypeException;
+import com.spimex.purchasebonuses.service.payment.PaymentService;
 import com.spimex.purchasebonuses.web.dict.PaymentSource;
 import com.spimex.purchasebonuses.web.dto.JsonException;
-import com.spimex.purchasebonuses.web.exception.NotSupportedTypeException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static com.spimex.purchasebonuses.exception.NotSupportedTypeException.NOT_SUPPORTED_TEMPLATE;
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/payment")
+@RequestMapping(value = PaymentController.URL)
 public class PaymentController {
+
+    public static final String URL = "/payment";
 
     private final PaymentService service;
 
@@ -25,7 +29,7 @@ public class PaymentController {
             this.service.makePayment(paymentSource, amount);
             return ResponseEntity.ok().build();
         }
-        throw new NotSupportedTypeException("Payment source '%s' does not supported".formatted(paymentSource));
+        throw new NotSupportedTypeException(NOT_SUPPORTED_TEMPLATE.formatted(paymentSource));
     }
 
     @ExceptionHandler(Exception.class)

@@ -11,13 +11,21 @@ import org.springframework.stereotype.Repository;
 @Qualifier(BankAccountRepository.MOCK_IMPL)
 public class MockBankAccountRepository implements BankAccountRepository {
 
-    private final static String NOT_ENOUGHT_TEMPLATE = "Not enough %s. Current account is %s, need %s";
-
+    private final static String NOT_ENOUGH_TEMPLATE = "Not enough %s. Current account is %s, need %s";
+    public static final long START_CASH_COUNT = 2500L;
+    public static final long START_NON_CASH_COUNT = 2500L;
+    public static final long START_E_MONEY_COUNT = 0;
     private final static BankAccount ACCOUNT = new BankAccount();
 
     {
-        ACCOUNT.setCashMoney(2500L);
-        ACCOUNT.setNonCashMoney(2500L);
+        setStartBalance();
+    }
+
+    public static void setStartBalance() {
+        log.info("setStartBalance(cash: {}, nonCash: {}, eMoney: {})", START_CASH_COUNT, START_NON_CASH_COUNT, START_E_MONEY_COUNT);
+        ACCOUNT.setCashMoney(START_CASH_COUNT);
+        ACCOUNT.setNonCashMoney(START_NON_CASH_COUNT);
+        ACCOUNT.setEMoney(START_E_MONEY_COUNT);
     }
 
     @Override
@@ -32,7 +40,7 @@ public class MockBankAccountRepository implements BankAccountRepository {
         log.info("getEMoney(count: {})", count);
         long eMoneyCount = getEMoneyCount();
         if (eMoneyCount < count) {
-            throw new NotEnoughMoneyException(NOT_ENOUGHT_TEMPLATE.formatted("EMoney", eMoneyCount, count));
+            throw new NotEnoughMoneyException(NOT_ENOUGH_TEMPLATE.formatted("EMoney", eMoneyCount, count));
         }
         ACCOUNT.setEMoney(eMoneyCount - count);
         return count;
@@ -46,6 +54,7 @@ public class MockBankAccountRepository implements BankAccountRepository {
 
     @Override
     public void addCashMoney(long count) {
+        log.info("addCashMoney(count: {})", count);
         long currentCashCount = getCashMoneyCount();
         ACCOUNT.setCashMoney(currentCashCount + count);
     }
@@ -55,16 +64,10 @@ public class MockBankAccountRepository implements BankAccountRepository {
         log.info("getCashMoney(count: {})", count);
         long cashCount = getCashMoneyCount();
         if (cashCount < count) {
-            throw new NotEnoughMoneyException(NOT_ENOUGHT_TEMPLATE.formatted("CashMoney", cashCount, count));
+            throw new NotEnoughMoneyException(NOT_ENOUGH_TEMPLATE.formatted("CashMoney", cashCount, count));
         }
         ACCOUNT.setCashMoney(cashCount - count);
         return count;
-    }
-
-    @Override
-    public long getCashMoneyCount() {
-        log.info("getCashMoneyCount()");
-        return ACCOUNT.getCashMoney();
     }
 
     @Override
@@ -77,12 +80,18 @@ public class MockBankAccountRepository implements BankAccountRepository {
     @Override
     public long getNonCashMoney(long count) {
         log.info("getNonCashMoney(count: {})", count);
-        long nonCashCount = getCashMoneyCount();
+        long nonCashCount = getNonCashMoneyCount();
         if (nonCashCount < count) {
-            throw new NotEnoughMoneyException(NOT_ENOUGHT_TEMPLATE.formatted("NonCashMoney", nonCashCount, count));
+            throw new NotEnoughMoneyException(NOT_ENOUGH_TEMPLATE.formatted("NonCashMoney", nonCashCount, count));
         }
         ACCOUNT.setNonCashMoney(nonCashCount - count);
         return count;
+    }
+
+    @Override
+    public long getCashMoneyCount() {
+        log.info("getCashMoneyCount()");
+        return ACCOUNT.getCashMoney();
     }
 
     @Override

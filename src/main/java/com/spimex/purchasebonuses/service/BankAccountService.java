@@ -1,9 +1,13 @@
 package com.spimex.purchasebonuses.service;
 
 import com.spimex.purchasebonuses.dao.BankAccountRepository;
-import com.spimex.purchasebonuses.web.dto.MoneyDto;
+import com.spimex.purchasebonuses.web.dict.PaymentSource;
+import com.spimex.purchasebonuses.dto.MoneyDto;
+import com.spimex.purchasebonuses.exception.NotSupportedTypeException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import static com.spimex.purchasebonuses.exception.NotSupportedTypeException.NOT_SUPPORTED_TEMPLATE;
 
 @Service
 public class BankAccountService {
@@ -24,12 +28,21 @@ public class BankAccountService {
         this.bankAccountRepository.addEMoney(eMoney);
     }
 
+    public long getMoney(PaymentSource paymentSource, long paymentAmount) {
+        if (PaymentSource.Shop.equals(paymentSource)) {
+            return getCashMoney(paymentAmount);
+        } else if (PaymentSource.Online.equals(paymentSource)) {
+            return getNonCashMoney(paymentAmount);
+        }
+        throw new NotSupportedTypeException(NOT_SUPPORTED_TEMPLATE.formatted(paymentSource));
+    }
+
     public long getCashMoney(long eMoney) {
-        return bankAccountRepository.getCashMoney(eMoney);
+        return this.bankAccountRepository.getCashMoney(eMoney);
     }
 
     public long getNonCashMoney(long eMoney) {
-        return bankAccountRepository.getNonCashMoney(eMoney);
+        return this.bankAccountRepository.getNonCashMoney(eMoney);
     }
 
     public MoneyDto getMoneyCount() {

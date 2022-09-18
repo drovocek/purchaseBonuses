@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/bankAccountOfEMoney")
+@RequestMapping(value = BankAccountOfEMoneyController.URL)
 public class BankAccountOfEMoneyController {
+
+    public static final String URL = "/bankAccountOfEMoney";
 
     private final BankAccountService service;
 
