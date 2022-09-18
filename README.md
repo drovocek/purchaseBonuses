@@ -11,6 +11,7 @@ The (:link: [**task**](https://github.com/drovocek/purchaseBonuses/blob/master/t
 - Spring Boot(MVC, Test)
 - Maven
 - Lombok
+- Open Api
 
 ## Commands
 - `./mvnw.cmd spring-boot:run` - run project
