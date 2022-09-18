@@ -18,7 +18,10 @@ The (:link: [**task**](https://github.com/drovocek/purchaseBonuses/blob/master/t
 - `./mvnw.cmd clean test` - run tests
 
 ## Endpoints Documentation
-run project and go to (:link: [**doc**](http://localhost:8080/api/doc.html))
+- download project to your host
+- got to project root ./purchaseBonuses
+- run project from console by `./mvnw.cmd spring-boot:run`
+- go to (:link: [**doc**](http://localhost:8080/api/doc.html))
 
 ## Notice
 - Mock data model and dao
